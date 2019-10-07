@@ -1,25 +1,27 @@
-# Apollo tutorial
+# Forked version of the apollo tutorial to showcase an issue with `apollo codegen:generate`
 
-This is the fullstack app for the [Apollo tutorial](http://apollographql.com/docs/tutorial/introduction.html). 🚀
+To reproduce:
 
-## File structure
+1. Go to the client directory:
 
-The app is split out into two folders:
-- `start`: Starting point for the tutorial
-- `final`: Final version
-
-From within the `start` and `final` directories, there are two folders (one for `server` and one for `client`).
-
-## Installation
-
-To run the app, run these commands in two separate terminal windows from the root:
-
-```bash
-cd final/server && npm i && npm start
+``` bash
+$ cd final/client
 ```
 
-and
+3. Install dependencies:
 
-```bash
-cd final/client && npm i && npm start
+``` bash
+$ yarn # or npm install
 ```
+
+4. Run `apollo codegen:generate`:
+
+``` bash
+ $ npx apollo codegen:generate --target flow --includes src/sample-queries.js --localSchemaFile schema.json
+  ✔ Loading Apollo Project
+  ✔ Generating query files with 'flow' target - wrote 1 files
+```
+
+There are two queries defined in `src/sample-queries.js`, a valid one
+(which is correctly picked up by apollo-cli) and one with a syntax
+error, which is silently ignored - which might be a problem.
